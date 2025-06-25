@@ -1,16 +1,69 @@
-# pasteleria_v2
 
-A new Flutter project.
+# 🧁 App de Panadería – Instructivo de Uso
 
-## Getting Started
+¡Bienvenido/a a nuestra app de panadería artesanal!  
+Aquí podrás explorar nuestros productos, realizar pedidos y disfrutar del mejor sabor, directo desde tu celular.
 
-This project is a starting point for a Flutter application.
+---
 
-A few resources to get you started if this is your first Flutter project:
+## 📲 ¿Qué puedes hacer con la app?
 
-- [Lab: Write your first Flutter app](https://docs.flutter.dev/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://docs.flutter.dev/cookbook)
+- ✅ **Registrarte o iniciar sesión**
+- 🛒 **Explorar el catálogo** de productos (pasteles, panes, galletas y postres)
+- 🧺 **Agregar productos al carrito**
+- 📦 **Realizar un pedido** con tus datos de contacto
+- 📍**Ver tu pedido registrado**
+- 💬 (Próximamente) Recibir notificaciones de entrega
 
-For help getting started with Flutter development, view the
-[online documentation](https://docs.flutter.dev/), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
+---
+
+## 🚀 ¿Cómo usar la app?
+
+### 1. **Registro e inicio de sesión**
+- Abre la app y selecciona **"Registrarse"**.
+- Ingresa tu nombre, correo electrónico y una contraseña.
+- Una vez registrado, puedes iniciar sesión con tus datos.
+
+---
+
+### 2. **Navegación por categorías**
+- En la pantalla principal, verás categorías como:
+  - 🧁 Pasteles
+  - 🍞 Panes
+  - 🍪 Galletas
+  - 🍮 Postres
+- Toca cualquier categoría para ver los productos disponibles.
+
+---
+
+### 3. **Agregar al carrito**
+- Presiona el botón **"Agregar al carrito"** debajo de cualquier producto.
+- Puedes ver tu carrito tocando el ícono 🛒 en la parte superior.
+
+---
+
+### 4. **Realizar pedido**
+- Una vez en el carrito, toca **"Finalizar pedido"**.
+- Ingresa tu dirección, número de contacto y confirmación del pedido.
+- Recibirás un mensaje de confirmación en pantalla.
+
+---
+
+### 5. **Ver tus pedidos**
+- (Si se implementó) Puedes revisar tus pedidos anteriores desde el menú o sección "Mis pedidos".
+
+---
+
+## ℹ️ Información adicional
+
+- **Requisitos mínimos:** Android 7 o superior
+- **Conexión a internet:** Necesaria para visualizar productos y hacer pedidos
+- **Privacidad:** Tus datos solo se usan para el funcionamiento de la app (no se comparten con terceros)
+
+---
+
+## 🤝 Soporte
+
+¿Tienes dudas, sugerencias o problemas con la app?  
+Contáctanos al correo: **soporte@panaderiaapp.com**
+
