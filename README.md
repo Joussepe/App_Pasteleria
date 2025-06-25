@@ -65,5 +65,5 @@ Aquí podrás explorar nuestros productos, realizar pedidos y disfrutar del mejo
 ## 🤝 Soporte
 
 ¿Tienes dudas, sugerencias o problemas con la app?  
-Contáctanos al correo: **soporte@panaderiaapp.com**
+Contáctanos al correo: **76943911@continental.edu.pe**
 
