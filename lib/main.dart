@@ -6,6 +6,7 @@ import 'package:provider/provider.dart';
 import 'package:pasteleria_v2/services/firebase_services.dart';
 import 'package:pasteleria_v2/services/cart_service.dart';
 import 'package:pasteleria_v2/screens/login_screen.dart';
+import 'package:pasteleria_v2/screens/catalogo_screen.dart';
 import 'package:pasteleria_v2/theme/app_theme.dart';
 import 'firebase_options.dart';
 
@@ -22,12 +23,46 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return ChangeNotifierProvider(
-      create: (context) => CartService(),
+    return MultiProvider(
+      providers: [
+        ChangeNotifierProvider(create: (context) => CartService()),
+        ChangeNotifierProvider(create: (context) => UserProvider()),
+      ],
       child: MaterialApp(
         title: 'Pastelería App',
         theme: AppTheme.theme,
-        home: const LoginScreen(),
+        home: const SplashScreen(),
+      ),
+    );
+  }
+}
+
+class SplashScreen extends StatelessWidget {
+  const SplashScreen({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    Future.delayed(const Duration(seconds: 2), () {
+      Navigator.pushReplacement(
+        context,
+        MaterialPageRoute(builder: (context) => const CatalogoScreen()),
+      );
+    });
+    return Scaffold(
+      backgroundColor: Colors.white,
+      body: Center(
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            Image.asset(
+              'assets/carga.png',
+              width: 200,
+              fit: BoxFit.contain,
+            ),
+            const SizedBox(height: 32),
+            const CircularProgressIndicator(),
+          ],
+        ),
       ),
     );
   }

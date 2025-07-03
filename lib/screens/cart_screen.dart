@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:pasteleria_v2/services/cart_service.dart';
 import 'package:pasteleria_v2/theme/app_theme.dart';
+import 'package:pasteleria_v2/services/firebase_services.dart';
 
 class CartScreen extends StatelessWidget {
   const CartScreen({super.key});
@@ -201,16 +202,10 @@ class CartScreen extends StatelessWidget {
                       width: double.infinity,
                       child: ElevatedButton(
                         onPressed: () {
-                          // TODO: Implementar proceso de pago
-                          ScaffoldMessenger.of(context).showSnackBar(
-                            const SnackBar(
-                              content: Text('¡Proceso de pago implementado próximamente!'),
-                              backgroundColor: AppTheme.primaryColor,
-                            ),
-                          );
+                          _showPaymentConfirmation(context, cartService);
                         },
                         style: AppTheme.primaryButtonStyle,
-                        child: const Text('Proceder al pago'),
+                        child: const Text('Finalizar Compra'),
                       ),
                     ),
                   ],
@@ -240,6 +235,138 @@ class CartScreen extends StatelessWidget {
           style: const TextStyle(fontSize: 12, fontWeight: FontWeight.w500),
         ),
       ],
+    );
+  }
+
+  void _showPaymentConfirmation(BuildContext context, CartService cartService) {
+    showDialog(
+      context: context,
+      builder: (context) => AlertDialog(
+        title: Row(
+          children: [
+            Icon(Icons.shopping_cart, color: AppTheme.primaryColor),
+            const SizedBox(width: 8),
+            const Text('Confirmar Compra'),
+          ],
+        ),
+        content: Column(
+          mainAxisSize: MainAxisSize.min,
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            Text('¿Confirmas tu pedido?', style: AppTheme.bodyStyle),
+            const SizedBox(height: 16),
+            Text('Total: S/ ${cartService.total.toStringAsFixed(2)}', 
+                 style: AppTheme.headingStyle.copyWith(fontSize: 18)),
+            const SizedBox(height: 8),
+            Text('${cartService.items.length} productos', 
+                 style: AppTheme.bodyStyle.copyWith(color: AppTheme.primaryColor)),
+          ],
+        ),
+        actions: [
+          TextButton(
+            onPressed: () => Navigator.of(context).pop(),
+            child: const Text('Cancelar'),
+          ),
+          ElevatedButton(
+            onPressed: () {
+              Navigator.of(context).pop();
+              _processPayment(context, cartService);
+            },
+            style: AppTheme.primaryButtonStyle,
+            child: const Text('Confirmar'),
+          ),
+        ],
+      ),
+    );
+  }
+
+  void _processPayment(BuildContext context, CartService cartService) {
+    // Simular proceso de pago directamente sin Future.delayed
+    _showPaymentSuccess(context, cartService);
+  }
+
+  void _showPaymentSuccess(BuildContext context, CartService cartService) {
+    showDialog(
+      context: context,
+      barrierDismissible: false,
+      builder: (context) => AlertDialog(
+        content: Column(
+          mainAxisSize: MainAxisSize.min,
+          children: [
+            Container(
+              padding: const EdgeInsets.all(16),
+              decoration: BoxDecoration(
+                color: Colors.green.withOpacity(0.1),
+                shape: BoxShape.circle,
+              ),
+              child: const Icon(
+                Icons.check_circle,
+                color: Colors.green,
+                size: 48,
+              ),
+            ),
+            const SizedBox(height: 16),
+            const Text(
+              '¡Pago Exitoso!',
+              style: TextStyle(
+                fontSize: 20,
+                fontWeight: FontWeight.bold,
+                color: Colors.green,
+              ),
+            ),
+            const SizedBox(height: 8),
+            Text(
+              'Tu pedido ha sido confirmado',
+              style: AppTheme.bodyStyle,
+              textAlign: TextAlign.center,
+            ),
+            const SizedBox(height: 8),
+            Text(
+              'S/ ${cartService.total.toStringAsFixed(2)}',
+              style: AppTheme.headingStyle.copyWith(fontSize: 18),
+            ),
+            const SizedBox(height: 16),
+            const Text(
+              'Te notificaremos cuando tu pedido esté listo',
+              style: TextStyle(fontSize: 12),
+              textAlign: TextAlign.center,
+            ),
+          ],
+        ),
+        actions: [
+          ElevatedButton(
+            onPressed: () {
+              // Guardar pedido en historial
+              final userProvider = Provider.of<UserProvider>(context, listen: false);
+              final order = Order(
+                id: DateTime.now().millisecondsSinceEpoch.toString(),
+                date: DateTime.now(),
+                items: List.from(cartService.items), // Copia de los items
+                total: cartService.total,
+              );
+              userProvider.addOrder(order);
+              
+              // Limpiar carrito
+              cartService.clearCart();
+              Navigator.of(context).pop();
+              
+              // Mostrar mensaje de confirmación
+              ScaffoldMessenger.of(context).showSnackBar(
+                const SnackBar(
+                  content: Text('¡Gracias por tu compra! Tu pedido está siendo preparado.'),
+                  backgroundColor: Colors.green,
+                  duration: Duration(seconds: 3),
+                ),
+              );
+            },
+            style: ElevatedButton.styleFrom(
+              backgroundColor: Colors.green,
+              foregroundColor: Colors.white,
+            ),
+            child: const Text('¡Perfecto!'),
+          ),
+        ],
+      ),
     );
   }
 } 
